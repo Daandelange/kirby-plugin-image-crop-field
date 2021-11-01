@@ -43,6 +43,14 @@ Kirby::plugin('steirico/kirby-plugin-image-crop-field', [
                     }
                 }
             ]
-        ]
+        ],
+    ],
+    'hooks' => [
+        'file.delete:before' => function ($file) {
+            $croppedImage = $file->croppedImage();
+            if ($croppedImage->exists()) {
+                $croppedImage->delete();
+            }
+        }
     ]
 ]);
