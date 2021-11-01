@@ -1,5 +1,6 @@
 <?php
 
+use Kirby\Cms\Media;
 class CroppedImage extends Kirby\CMS\File {
 
   private $original;
@@ -114,6 +115,32 @@ class CroppedImage extends Kirby\CMS\File {
     }
 
     return null;
+  }
+
+  public function delete(bool $force = false): bool {
+    //taken from src/kirby/src/Cms/FileActions.php
+    // remove all versions in the media folder
+    $this->unpublish();
+
+    // remove the lock of the old file
+    if ($lock = $this->lock()) {
+        $lock->remove();
+    }
+
+    if ($this->kirby()->multilang() === true) {
+        foreach ($this->translations() as $translation) {
+            F::remove($this->contentFile($translation->code()));
+        }
+    } else {
+        F::remove($this->contentFile());
+    }
+
+    F::remove($this->root());
+
+    // remove the file from the sibling collection
+    $this->parent()->files()->remove($this);
+
+    return true;
   }
 
   public static function croppedImage($requestedFile) {
