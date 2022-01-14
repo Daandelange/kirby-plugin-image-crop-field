@@ -37,9 +37,11 @@ Kirby::plugin('steirico/kirby-plugin-image-crop-field', [
                     }
 
                     if(is_array($value)){
+                        // Not sure how to make this an object properly. Returning an array throws a vue type-warning in the panel when in panel develop mode.
+                        // return (object) $value;
                         return $value;
                     } else {
-                        return Data::decode($value, 'yaml');
+                        return Data::decode($value, 'yaml').toObject();
                     }
                 }
             ]

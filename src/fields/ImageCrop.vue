@@ -49,8 +49,12 @@ export default {
     image: String,
     value: Object,
     minSize: Object,
-    preserveAspectRatio: Boolean,
-    isCropping: Boolean
+    preserveAspectRatio: Boolean
+  },
+  data() {
+    return {
+	  	isCropping: Boolean
+	  }
   },
   computed: {
     data() {
@@ -95,9 +99,9 @@ export default {
     },
     cropend(e){
       if(this.ready){
-        this.value = this.$refs.cropper.getData(true);;
+        let value = this.$refs.cropper.getData(true);
         this.isCropping = false;
-        this.$emit("input", this.value);
+        this.$emit("input", value);
       }
     },
     ready(){
