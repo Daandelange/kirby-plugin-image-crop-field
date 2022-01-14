@@ -6,7 +6,7 @@
           <vue-cropper
             ref="cropper"
             :view-mode="1"
-            :dragMode="crop"
+            dragMode="crop"
             :autoCrop="true"
             :zoomable="false"
             :movable="false"
