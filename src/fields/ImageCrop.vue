@@ -64,6 +64,7 @@ export default {
   },
   props: {
     label: String,
+    name: String,
     image: String,
     value: Object,
     minSize: Object,
