@@ -14,7 +14,7 @@
             :aspectRatio="aspectRatio"
             :src="image"
             alt="Source Image"
-            :ready="ready"
+            :ready="onReady"
             :crop="cropmove"
             :cropend="cropend"    
           ></vue-cropper>
@@ -71,7 +71,8 @@ export default {
   },
   data() {
     return {
-	  	isCropping: Boolean
+	  	isCropping: Boolean,
+	  	ready: false,
 	  }
   },
   computed: {
@@ -113,7 +114,8 @@ export default {
         update = true;
       }
 
-      this.value = data;
+      //this.value = data;
+      this.$emit('input', data);
       if(update){
         this.$refs.cropper.setData(data);
       }
@@ -125,7 +127,7 @@ export default {
         this.$emit("input", value);
       }
     },
-    ready(){
+    onReady(){
       this.ready = true;
       this.isCropping = false;
     }
