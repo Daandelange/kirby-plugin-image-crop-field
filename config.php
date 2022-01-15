@@ -41,7 +41,9 @@ Kirby::plugin('steirico/kirby-plugin-image-crop-field', [
                         // return (object) $value;
                         return $value;
                     } else {
-                        return Data::decode($value, 'yaml').toObject();
+                        $val = Data::decode($value, 'yaml');
+                        if(is_array($val)) $val = (object)$val;//json_decode(json_encode($val), FALSE);
+                        return $val;
                     }
                 }
             ]
