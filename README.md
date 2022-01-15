@@ -143,9 +143,9 @@ Or alternatively, get the crop zone for a specific thumb preset.
 
 ## Issues
 
-Feel free to file an [issue](https://github.com/steirico/kirby-plugin-image-crop-field/issues) if you encounter any problems or unexpected behavior.
+Feel free to file an [issue](https://github.com/steirico/kirby-plugin-image-crop-field/issues) if you encounter any problems or unexpected behaviour.
   
-Currently there is a know issue that crooped images apear twice when geting images by `$page->images()`. 
+Currently there is a know issue that cropped images appear twice when getting images by `$page->images()`. 
 
 ## License
 
