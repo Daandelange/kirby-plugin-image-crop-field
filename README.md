@@ -49,6 +49,23 @@ Define an appropriate file blueprint for images and add the field as follow:
 >       preserveAspectRatio: true
 >   ```
 
+This plugin also provides a dynamically generated blueprint to display crop zones for [Kirby's default thumbs](https://getkirby.com/docs/reference/system/options/thumbs#presets).
+>   `/site/blueprints/files/image.yml`:
+>   ```yaml
+>   fields:
+>     defaultthumbcropzones:
+>       type: group
+>       extends: fields/defaultkirbythumbscropfields
+>   ```
+
+### Plugin Options
+There are a few options available to configure the output of the dynamic blueprint `defaultkirbythumbscropfields`.
+- `thumbscropfields.fieldtitle`    (string)       : The title of the default thumbnail crop zones.
+- `thumbscropfields.provideselect` (bool)         : Enable to include a select field to select the thumb crop zone to show.
+- `thumbscropfields.providetabs`   (bool)         : Enable to include a tabs field to select the thumb crop zone to show. Needs https://github.com/Daandelange/kirby3-TabsField
+- `thumbscropfields.whenfield`     (string|false) : A field name that holds the value of the thumb preset to show : "thumb_{{THUMBNAME}}" (ex: thumb_default). If false, no when condition is set and the fields are all visible at once.
+- `thumbscropfields.thumbnames`    (array)        : An array with thumb preset names as keys and their respective values as values.
+
 ### Blueprint Options
 
 #### `minSize`
@@ -116,6 +133,12 @@ Use the the [file method](https://getkirby.com/docs/reference/plugins/extensions
 >   <figure>
 >     <?= $page->image()->croppedImage() ?>
 >   </figure>
+
+Or alternatively, get the crop zone for a specific thumb preset.
+>   ```html
+>   <div>
+>     <?php dump($page->image()->cropZoneForThumbPreset('default')) ?>
+>   </div>
 
 
 ## Issues
