@@ -20,13 +20,31 @@
           ></vue-cropper>
         </k-column>
         <k-column width="1/6">
-          <k-headline>Crop Properties</k-headline>
-          <k-list>
-            <k-list-item :image=true :icon="{type: '→', back: 'black', emoji: true}" :text="value.x"/>
-            <k-list-item :image=true :icon="{type: '↓', back: 'black', emoji: true}" :text="value.y"/>
-            <k-list-item :image=true :icon="{type: '↔️', back: 'black', emoji: true}" :text="value.width"/>
-            <k-list-item :image=true :icon="{type: '↕️', back: 'black', emoji: true}" :text="value.height"/>
-          </k-list>
+					<k-headline>Crop Properties</k-headline>
+					<k-items layout="list" v-if="hasFiber" class="imagecrop-dimensions">
+					  <k-item layout="list" :image="{icon: '→',  back: 'black'}" class="k-imagecrop-icon">
+							<k-number-input class="k-item-title" disabled :value="value.x" />
+							<p class="k-item-info" >X</p>
+						</k-item>
+						<k-item layout="list" :image="{icon: '↓',  back: 'black'}" class="k-imagecrop-icon">
+							<k-number-input class="k-item-title" disabled :value="value.y" />
+							<p class="k-item-info" >Y</p>
+						</k-item>
+					  <k-item layout="list" :image="{icon: '↔️', back: 'black'}" class="k-imagecrop-icon">
+							<k-number-input class="k-item-title" disabled :value="value.width" />
+							<p class="k-item-info" >Width</p>
+						</k-item>
+					  <k-item layout="list" :image="{icon: '↕️', back: 'black'}" class="k-imagecrop-icon">
+							<k-number-input class="k-item-title" disabled :value="value.height" />
+							<p class="k-item-info" >Height</p>
+						</k-item>
+					</k-items>
+					<k-list v-else>
+					  <k-list-item :image=true :icon="{type: '→', back: 'black', emoji: true}" :text="value.x"/>
+					  <k-list-item :image=true :icon="{type: '↓', back: 'black', emoji: true}" :text="value.y"/>
+					  <k-list-item :image=true :icon="{type: '↔️', back: 'black', emoji: true}" :text="value.width"/>
+					  <k-list-item :image=true :icon="{type: '↕️', back: 'black', emoji: true}" :text="value.height"/>
+					</k-list>
         </k-column>
       </k-grid>
     </div>
@@ -57,6 +75,9 @@ export default {
 	  }
   },
   computed: {
+		hasFiber(){
+			return (window && window.panel && window.panel.$languages);
+		},
     data() {
       return this.value;
     },
@@ -112,3 +133,13 @@ export default {
 };
 
 </script>
+
+<style lang="scss">
+	.k-imagecrop-icon .k-item-figure {
+		color: white;
+	}
+	.imagecrop-dimensions .k-item-title {
+		width: 50%;
+		min-width: 50px;
+	}
+</style>
